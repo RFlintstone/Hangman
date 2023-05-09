@@ -55,7 +55,7 @@ class Main:
         self.__wordState = "_" * len(self.__word)                                                               # Make the word blank again, in case it is not
         self.modguesscount(0, "=")                                                                              # (Re)set guesses to 0, in case it is not
         # self.modguesscount(len(self.__word) + 3, "+")                                                         # You have always 3 extra guesses then the word length
-        self.modguesscount(9, "+")                                                                              # You have always 3 extra guesses then the word length
+        self.modguesscount(9, "+")                                                                              # You have 9 guesses
 
         print('Setup complete, the word is ' + str(len(self.__word)) + ' long')                                 # Print that the setup is done
         print('You have ' + str(self.__guessCount) + ' guesses')                                                # Print how many guesses we have
