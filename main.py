@@ -35,18 +35,18 @@ class Main:
 
     # Makes us able to guess a letter
     def guess(self, letter):
-        try:
-            self.__currentGuess = letter.lower()                                                                # Set our current guess
+        self.__currentGuess = letter.lower()                                                                    # Set our current guess
+
+        if self.__currentGuess in self.__word:
             index = self.__word.index(self.__currentGuess)                                                      # Check the length of our guess
-            self.modguesscount(1, "-")                                                                          # Remove one guess as we just guessed
-        except ValueError:
-            print("Wrong Guess")                                                                                # Print if our guess is not present in the word we need to guess
-            self.printguesscount()                                                                              # Print our guesses left
-        else:
-            self.__wordState = self.__wordState[:index] + self.__currentGuess + self.__wordState[index + 1:]
+            self.__wordState = self.__wordState[:index] + self.__currentGuess + self.__wordState[index + 1:]    # Update wordstate when we guessed a letter
             print(self.__wordState)                                                                             # Print what we have guessed
-            self.printguesscount()                                                                              # Print our guesses left
             self.checkwin()                                                                                     # Check if we won with our last guess
+        elif self.__currentGuess not in self.__word:
+            print("Wrong Guess")                                                                                # Print if our guess is not present in the word we need to guess
+
+        self.modguesscount(1, "-")                                                                              # Remove one guess as we just guessed
+        self.printguesscount()                                                                                  # Print our guesses left
 
     # Sets up the game of hangman
     def setup(self):
@@ -54,8 +54,8 @@ class Main:
         self.__word = input().lower()                                                                           # Make the word which needs to be guessed lowercase
         self.__wordState = "_" * len(self.__word)                                                               # Make the word blank again, in case it is not
         self.modguesscount(0, "=")                                                                              # (Re)set guesses to 0, in case it is not
-        # self.modguesscount(len(self.__word) + 3, "+")                                                           # You have always 3 extra guesses then the word length
-        self.modguesscount(9, "+")                                                           # You have always 3 extra guesses then the word length
+        # self.modguesscount(len(self.__word) + 3, "+")                                                         # You have always 3 extra guesses then the word length
+        self.modguesscount(9, "+")                                                                              # You have always 3 extra guesses then the word length
 
         print('Setup complete, the word is ' + str(len(self.__word)) + ' long')                                 # Print that the setup is done
         print('You have ' + str(self.__guessCount) + ' guesses')                                                # Print how many guesses we have
